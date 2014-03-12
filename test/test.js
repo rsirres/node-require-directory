@@ -69,5 +69,34 @@ suite('require-directory', function(){
     	//act
     	reqdir(module, path, null, callback);
     });
+
+    test('should return module key as 3rd parameters of callback', function(done){
+        var callback = function(err, mod, name) {
+            var result = mod();
+            //assert
+            assert.equal('gone and done it', result);
+            assert.equal('do', name);
+            done();
+        };
+        var path = PATH_TO_EXAMPLE + '/fun';
+
+        //act
+        reqdir(module, path, null, callback);
+    });
+
+      test('should return module filename with extension as 4th parameters of callback', function(done) {
+          var callback = function(err, mod, name, filename) {
+              var result = mod();
+              //assert
+              assert.equal('gone and done it', result);
+              assert.equal('do', name);
+              assert.equal('do.js', filename);
+              done();
+          };
+          var path = PATH_TO_EXAMPLE + '/fun';
+
+          //act
+          reqdir(module, path, null, callback);
+      });
   });
 });

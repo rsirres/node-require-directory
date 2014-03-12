@@ -29,7 +29,7 @@ var requireDirectory = module.exports = function(m, path, exclude, callback){
         return true;
       }
     };
-  }else if(exclude && {}.toString.call(exclude) === '[object Function]'){
+  }else if(exclude && {}.toString.call(exclude) === '[object Function]') {
     delegate = exclude;
   }
 
@@ -44,8 +44,8 @@ var requireDirectory = module.exports = function(m, path, exclude, callback){
         var name = filename.substring(0, filename.lastIndexOf('.')); // hash node shouldn't include file extension
         retval[name] = m.require(joined);
         if (callback && typeof(callback) == 'function') {
-        	filter = callback(null, retval[name]);
-        	if( filter === false) remove retval[name];
+        	filter = callback(null, retval[name], name, filename);
+        	if( filter === false) delete retval[name];
         }
       }
     }
